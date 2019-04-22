@@ -42,6 +42,7 @@ var hashedData = algorithms.map(function(algo){
 console.log(hashedData);
 
 var multiHashing = require('multi-hashing');
+var cnUtil = require('cryptonote-util');
 
 var cryptoNight = multiHashing['cryptonight'];
 
@@ -49,5 +50,10 @@ function cryptoNightFast(buf) {
     return cryptoNight(Buffer.concat([new Buffer([buf.length]), buf]), true);
 }
 
-console.log(cryptoNight(buf).toString('hex'));
+(() => {
+	let convertedBlob = cnUtil.convert_blob(data);
+    console.log(cryptoNight(convertedBlob).toString('hex'));
+})
+
+console.log(cryptoNight(data).toString('hex'));
 console.log(cryptoNightFast(data).toString('hex'));
